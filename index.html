@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập TK8: Chuyển đổi màu Hex sang RGB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff5f5;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.15);
+            border-top: 5px solid #dc3545;
+        }
+        h2 {
+            color: #b02a37;
+            margin-top: 0;
+        }
+        p {
+            color: #495057;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #842029;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #f5c2c7;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+        }
+        input[type="text"]:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.4);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #b02a37;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #b02a37;
+        }
+        .preview-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Bài tập TK8: Chuyển đổi màu Hex sang RGB</h2>
+    <p>Viết hàm nhận mã màu Hex (ví dụ: #FF0000) và trả về giá trị RGB tương ứng (rgb(255, 0, 0)).</p>
+
+    <div class="input-group">
+        <label for="hexInput">Nhập mã Hex:</label>
+        <input type="text" id="hexInput" placeholder="Ví dụ: #FF0000 hoặc FF0000" value="#FF0000">
+    </div>
+
+    <button onclick="convertHex()">Chuyển đổi</button>
+
+    <div class="result" id="resultText"></div>
+    <div class="preview-container">
+        <div class="preview" id="colorPreview"></div>
+        <span id="previewLabel" style="color: #6c757d; font-size: 14px;"></span>
+    </div>
+
+    <script>
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+
+            if (hex.length === 3) {
+			hex = hex.split('').map(char => char + char).join('');
+            }
+
+            if (hex.length !== 6) {
+                return null;
+            }
+
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+
+            if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                return null;
+            }
+
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function convertHex() {
+            const hexVal = document.getElementById('hexInput').value.trim();
+            const rgbVal = hexToRgb(hexVal);
+            const resultDiv = document.getElementById('resultText');
+            const previewDiv = document.getElementById('colorPreview');
+            const previewLabel = document.getElementById('previewLabel');
+
+            if (rgbVal) {
+                resultDiv.innerText = `Kết quả RGB: ${rgbVal}`;
+                resultDiv.style.color = '#842029';
+                previewDiv.style.backgroundColor = rgbVal;
+                previewLabel.innerText = "Xem trước màu";
+            } else {
+                resultDiv.innerText = 'Mã Hex không hợp lệ!';
+                resultDiv.style.color = '#dc3545';
+                previewDiv.style.backgroundColor = 'transparent';
+                previewLabel.innerText = "";
+            }
+        }
+
+        // Tự động chạy lần đầu với giá trị mặc định (#FF0000)
+        convertHex();
+    </script>
+
+</body>
+</html>

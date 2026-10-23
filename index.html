@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập TK5 - Accordion đơn giản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+        }
+
+        /* Kiểu dáng cho thẻ accordion */
+        .accordion-item {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Nút tiêu đề accordion */
+        .accordion-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background-color: #0056b3;
+        }
+
+        /* Phần nội dung ẩn ban đầu */
+        .accordion-content {
+            background-color: white;
+            max-height: 0; /* Mặc định ẩn bằng max-height = 0 */
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Hiệu ứng trượt mượt mà */
+            padding: 0 20px;
+        }
+
+        /* Class 'active' để mở rộng nội dung khi được click */
+        .accordion-item.active .accordion-content {
+            max-height: 200px; /* Độ cao tối đa khi mở */
+            padding: 15px 20px;
+        }
+
+        /* Xoay biểu tượng mũi tên khi mở */
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">Bài tập TK5: Accordion đơn giản</h2>
+
+    <div class="accordion-item" id="accordionItem">
+        <button class="accordion-header" id="accordionBtn">
+            <span>Tiêu đề Accordion (Bấm vào đây để đóng/mở)</span>
+            <span class="icon">▼</span>
+        </button>
+        <div class="accordion-content">
+            <p>Hello World.</p>
+        </div>
+    </div>
+
+    <script>
+        // Lấy phần tử tiêu đề và thẻ bao ngoài accordion
+        const accordionBtn = document.getElementById('accordionBtn');
+        const accordionItem = document.getElementById('accordionItem');
+
+        // Bắt sự kiện click vào nút tiêu đề
+		accordionBtn.addEventListener('click', function() {
+            // Toggle (bật/tắt) class 'active' trên thẻ accordion-item
+            accordionItem.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
